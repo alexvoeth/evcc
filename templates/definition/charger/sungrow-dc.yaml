@@ -1,0 +1,33 @@
+template: sungrow-dc
+products:
+  - brand: Sungrow
+    description:
+      generic: IDC30E
+  - brand: Sungrow
+    description:
+      generic: IDC30E-R
+  - brand: Sungrow
+    description:
+      generic: IDC180E
+  - brand: Sungrow
+    description:
+      generic: IDC480E
+capabilities: ["mA", "meter", "dim"]
+requirements:
+  description:
+    de: |
+      Die Modbus-Steuerung durch ein EMS muss am Ladegerät aktiviert sein. Der Ladepunkt muss mit 3 Phasen konfiguriert werden.
+      Der DC-Lader akzeptiert nur eine Leistungsvorgabe. evcc rechnet den Ladestrom mit 690 W/A (3 x 230 V) in Leistung um.
+      Der maximale Ladestrom des Ladepunkts muss entsprechend gewählt werden, z.B. 44 A für 30 kW.
+    en: |
+      Modbus control by an EMS must be enabled on the charger. The loadpoint must be configured with 3 phases.
+      The DC charger only accepts a power setpoint. evcc converts the charging current to power at 690 W/A (3 x 230 V).
+      Choose the loadpoint's maximum current accordingly, e.g. 44 A for 30 kW.
+params:
+  - name: modbus
+    choice: ["rs485", "tcpip"]
+  - name: connector
+render: |
+  type: sungrow-dc
+  {{- include "modbus" . }}
+  connector: {{ .connector }}
